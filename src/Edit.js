@@ -21,7 +21,7 @@ export function Edit({ data }) {
     const selectedUser = data.allUsers.find((user) => user.email === email);
     const [userName, setUserName] = useState(selectedUser.name);
     const [userRole, setUserRole] = useState(selectedUser.role);
-    const [updateUser] = useMutation(UPDATE_USER_MUTATION, { refetchQueries: [ {query:ALL_USERS_QUERY} ] });
+    const [updateUser] = useMutation(UPDATE_USER_MUTATION, { refetchQueries: [{ query: ALL_USERS_QUERY }] });
 
     const handleUpdate = () => {
         console.log('Exit Edit Mode');

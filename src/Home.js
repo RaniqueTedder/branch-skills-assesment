@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, /*useEffect*/ } from 'react';
 import './index.css';
 import { Link } from "react-router-dom";
 import { gql } from 'apollo-boost';
@@ -11,20 +11,20 @@ const DELETE_USERS_MUTATION = gql`
     }
 `;
 
-const RESET_USERS_MUTATION = gql`
+/*const RESET_USERS_MUTATION = gql`
     mutation ResetUsers {
       resetUsers
     }
-`;
+`;*/
 
 export function Home({ data }) {
   const [deleteUsers] = useMutation(DELETE_USERS_MUTATION, { refetchQueries: [{ query: ALL_USERS_QUERY }] });
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [resetUsers] = useMutation(RESET_USERS_MUTATION);
+  //const [resetUsers] = useMutation(RESET_USERS_MUTATION);
 
-  useEffect(()=> {
+  /*useEffect(()=> {
     resetUsers()
-  },[])
+  },[])*/
 
   const handleAdd = (e) => {
     e.stopPropagation();
@@ -91,7 +91,7 @@ export function Home({ data }) {
                     />
                     <p style={{ paddingLeft: '15px' }}>{user.email}</p>
                   </div>
-                  <p style={{  width: '33%' }}>{user.name}</p>
+                  <p style={{ width: '33%' }}>{user.name}</p>
                   <p style={{ textTransform: 'lowercase' }}>{user.role}</p>
                 </div>
               </li>

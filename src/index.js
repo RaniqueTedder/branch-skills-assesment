@@ -36,7 +36,7 @@ const App = () => {
     return <p>Error: {JSON.stringify(error)}</p>;
   }
 
-  
+
 
   return (
     <main>

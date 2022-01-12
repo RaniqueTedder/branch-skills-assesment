@@ -1,5 +1,5 @@
 import { ApolloProvider, useQuery } from '@apollo/react-hooks';
-import ApolloClient, { gql } from 'apollo-boost';
+import ApolloClient from 'apollo-boost';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import env from './env';
@@ -7,6 +7,7 @@ import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Edit } from './Edit';
 import { Home } from './Home';
+import { ALL_USERS_QUERY } from './queries';
 
 
 
@@ -22,15 +23,7 @@ const client = new ApolloClient({
   defaultOptions: { watchQuery: { fetchPolicy: 'no-cache' } }
 });
 
-const ALL_USERS_QUERY = gql`
-  query {
-    allUsers {
-      email
-      name
-      role
-    }
-  }
-`;
+
 
 const App = () => {
   const { loading, error, data } = useQuery(ALL_USERS_QUERY);

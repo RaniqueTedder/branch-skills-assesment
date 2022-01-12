@@ -46,6 +46,7 @@ h1{
 
 h4{
   margin: 0px;
+  width: 33%;
 }
 
 /*Main Page*/
@@ -79,7 +80,18 @@ li:hover *{
 
 .columnTitle h4:last-child,
 .rowData p:last-child{
-  width: 130px
+  width: 130px;
+}
+
+#deleteButton{
+  border: 2px red solid;
+  color: red;
+  background-color: transparent;
+}
+
+#deleteButton:disabled {
+  color: gray;
+  border-color: gray;
 }
 
 /*Edit User Form*/
@@ -106,4 +118,10 @@ li:hover *{
 #saveButton{
   background-color: #0070c9;
   color: white;
+}
+
+input[type=text]:focus {
+  outline: none;
+  border: 3px solid #0070c9;
+  box-shadow: 0 0 5px #0070c9;
 }

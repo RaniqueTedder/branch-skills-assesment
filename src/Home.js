@@ -1,25 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, /*useEffect*/ } from 'react';
 import './index.css';
 import { Link } from "react-router-dom";
 import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
-//import { useParams } from "react-router-dom";
+import { ALL_USERS_QUERY } from './queries';
 
 const DELETE_USERS_MUTATION = gql`
     mutation DeleteUsers($emails: [ID]!) {
-      deleteUsers(emails: $emails){
-        email
-      }
+      deleteUsers(emails: $emails)
     }
 `;
 
+/*const RESET_USERS_MUTATION = gql`
+    mutation ResetUsers {
+      resetUsers
+    }
+`;*/
+
 export function Home({ data }) {
-  //const { email } = useParams();
-  const [deleteUsers] = useMutation(DELETE_USERS_MUTATION);
+  const [deleteUsers] = useMutation(DELETE_USERS_MUTATION, { refetchQueries: [{ query: ALL_USERS_QUERY }] });
   const [selectedUsers, setSelectedUsers] = useState([]);
+  //const [resetUsers] = useMutation(RESET_USERS_MUTATION);
 
+  /*useEffect(()=> {
+    resetUsers()
+  },[])*/
 
-  /*const handleAdd = (e) => {
+  const handleAdd = (e) => {
     e.stopPropagation();
     const selectedUser = e.target.id;
     console.log(`Selected User ${selectedUser}`);
@@ -27,26 +34,17 @@ export function Home({ data }) {
       if (prev.includes(selectedUser)) {
         return prev.filter(user => user !== selectedUser)
       } else {
-        return [ ...prev, selectedUser]
+        return [...prev, selectedUser]
       }
     });
     console.log({ selectedUsers })
-  }*/
-
-  const handleAdd = (e) => {
-    e.stopPropagation();
-    const selectedUser = e.target.checked;
-    console.log(`Selected User ${selectedUser}`);
-    setSelectedUsers(() => {
-    
-    });
-    //console.log({ selectedUsers })
   }
+
 
 
   const handleDelete = () => {
     deleteUsers({
-      variables: { email: selectedUsers }
+      variables: { emails: selectedUsers }
     });
     console.log('Delete Users')
   }
@@ -56,7 +54,11 @@ export function Home({ data }) {
     <section>
       <header>
         <h1>Users</h1>
-        <button onClick={handleDelete}>
+        <button
+          id='deleteButton'
+          onClick={handleDelete}
+          disabled={!selectedUsers.length}
+        >
           Delete
         </button>
       </header>
@@ -80,7 +82,7 @@ export function Home({ data }) {
                 <div
                   className="rowData"
                   htmlFor={user}>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', width: '33%' }}>
                     <input
                       type='checkbox'
                       id={user.email}
@@ -89,7 +91,7 @@ export function Home({ data }) {
                     />
                     <p style={{ paddingLeft: '15px' }}>{user.email}</p>
                   </div>
-                  <p>{user.name}</p>
+                  <p style={{  width: '33%' }}>{user.name}</p>
                   <p style={{ textTransform: 'lowercase' }}>{user.role}</p>
                 </div>
               </li>

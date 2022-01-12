@@ -4,6 +4,7 @@ import { gql } from 'apollo-boost';
 import { useParams, useNavigate } from "react-router-dom";
 import './index.css';
 import { useMutation } from "@apollo/react-hooks";
+import { ALL_USERS_QUERY } from './queries';
 
 const UPDATE_USER_MUTATION = gql`
     mutation UpdateUser($email: ID!,$newAttributes: UserAttributesInput!) {
@@ -12,15 +13,6 @@ const UPDATE_USER_MUTATION = gql`
             role   
         }
     }
-`;
-const ALL_USERS_QUERY = gql`
-  query {
-    allUsers {
-      email
-      name
-      role
-    }
-  }
 `;
 
 export function Edit({ data }) {

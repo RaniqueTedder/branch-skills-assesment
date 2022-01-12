@@ -11,20 +11,20 @@ const DELETE_USERS_MUTATION = gql`
     }
 `;
 
-/*const RESET_USERS_MUTATION = gql`
+const RESET_USERS_MUTATION = gql`
     mutation ResetUsers {
       resetUsers
     }
-`;*/
+`;
 
 export function Home({ data }) {
   const [deleteUsers] = useMutation(DELETE_USERS_MUTATION, { refetchQueries: [{ query: ALL_USERS_QUERY }] });
   const [selectedUsers, setSelectedUsers] = useState([]);
-  //const [resetUsers] = useMutation(RESET_USERS_MUTATION);
+  const [resetUsers] = useMutation(RESET_USERS_MUTATION);
 
-  /*useEffect(()=> {
+  useEffect(()=> {
     resetUsers()
-  },[])*/
+  },[])
 
   const handleAdd = (e) => {
     e.stopPropagation();
